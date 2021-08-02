@@ -21,6 +21,7 @@ import {
   Invoices,
   Router,
   Signer,
+  State,
   Versioner,
   WalletKit,
 } from './services'
@@ -80,6 +81,7 @@ class LndGrpc extends EventEmitter {
       Invoices,
       Router,
       Signer,
+      State,
       Versioner,
       WalletKit,
     ]
@@ -124,10 +126,35 @@ class LndGrpc extends EventEmitter {
       this.emit('tor.started')
     }
 
-    // Probe the services to determine the wallet state.
-    const walletState = await this.determineWalletState()
+    // For lnd >= 0.13.*, the state service is available which provides with
+    // the wallet state. For lower version of lnd continue to use WalletUnlocker
+    // error codes
+    let walletState
+    this.checkRPCStatus = false
 
-    // Update our state accordingly.
+    try {
+      // Subscribe to wallet state and get current state
+      let currentState = await this.subscribeWalletState()
+
+      switch (currentState.state) {
+        case 'NON_EXISTING':
+        case 'LOCKED':
+        case 'WAITING_TO_START':
+          walletState = WALLET_STATE_LOCKED
+          break
+        case 'UNLOCKED': // Do nothing.
+          break
+        case 'RPC_ACTIVE':
+          walletState = WALLET_STATE_ACTIVE
+          break
+      }
+      this.checkRPCStatus = true
+    } catch (error) {
+      if (error.code === status.UNIMPLEMENTED) {
+        // Probe the services to determine the wallet state.
+        walletState = await this.determineWalletState()
+      }
+    }
     switch (walletState) {
       case WALLET_STATE_LOCKED:
         await this.activateWalletUnlocker()
@@ -199,11 +226,15 @@ class LndGrpc extends EventEmitter {
   async onBeforeActivateLightning() {
     const { Lightning, WalletUnlocker } = this.services
 
+    // await for RPC_ACTIVE state before interacting if needed
+    if (this.checkRPCStatus) {
+      await this.checkWalletState('RPC_ACTIVE')
+    }
+
     // Disconnect wallet unlocker if its connected.
     if (WalletUnlocker.can('disconnect')) {
       await WalletUnlocker.disconnect()
     }
-
     // First connect to the Lightning service.
     await Lightning.connect()
 
@@ -296,7 +327,6 @@ class LndGrpc extends EventEmitter {
           Disconnect all services.
         */
         default:
-          console.error(error)
           debug('Unable to determine wallet state', error)
           throw error
       }
@@ -305,6 +335,25 @@ class LndGrpc extends EventEmitter {
         await this.disconnect()
       }
     }
+  }
+
+  /**
+   * Wait for wallet  to enter a particular state.
+   * @param  {string} state state to wait for (RPC_ACTIVE, LOCKED, UNLOCKED)
+   * @return {Promise<Object>}.
+   */
+  checkWalletState(state) {
+    const waitForState = resolve => {
+      return this.services.State.getState()
+        .then(currentState => {
+          if(currentState.state === state) {
+            resolve(true)
+          } else {
+            setTimeout(_ => waitForState(resolve), 400);
+          }
+        })
+    }
+    return new Promise(waitForState)
   }
 
   /**
@@ -339,6 +388,28 @@ class LndGrpc extends EventEmitter {
     }
 
     return { isDone, cancel }
+  }
+
+  /**
+   * Subscribe to Wallet State Stream
+   * And return the current state
+   * @return {Promise<Object>}.
+   */
+  async subscribeWalletState() {
+    if (this.services.State.can('connect')) {
+      await this.services.State.connect()
+    }
+
+    let subscribeState = await this.services.State.subscribeState()
+    return new Promise((resolve, reject) => {
+      subscribeState.on('data', response => {
+        debug(`Got wallet state as ${response.state}`)
+      })
+      subscribeState.on('error', () => {
+        debug('Stopped listening to wallet state')
+      })
+      resolve(this.services.State.getState())
+     })
   }
 }
 
