@@ -1,0 +1,22 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+/**
+ * Helper function to return an absolute deadline given a relative timeout in seconds.
+ * @param {number} timeoutSecs The number of seconds to wait before timing out
+ * @return {Date} A date timeoutSecs in the future
+ */
+const getDeadline = timeoutSecs => {
+  var deadline = new Date();
+  deadline.setSeconds(deadline.getSeconds() + timeoutSecs);
+  return deadline.getTime();
+};
+
+var _default = getDeadline;
+exports.default = _default;
+module.exports = exports.default;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy91dGlscy9nZXREZWFkbGluZS5qcyJdLCJuYW1lcyI6WyJnZXREZWFkbGluZSIsInRpbWVvdXRTZWNzIiwiZGVhZGxpbmUiLCJEYXRlIiwic2V0U2Vjb25kcyIsImdldFNlY29uZHMiLCJnZXRUaW1lIl0sIm1hcHBpbmdzIjoiOzs7Ozs7O0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLE1BQU1BLFdBQVcsR0FBSUMsV0FBRCxJQUFpQjtBQUNuQyxNQUFJQyxRQUFRLEdBQUcsSUFBSUMsSUFBSixFQUFmO0FBQ0FELEVBQUFBLFFBQVEsQ0FBQ0UsVUFBVCxDQUFvQkYsUUFBUSxDQUFDRyxVQUFULEtBQXdCSixXQUE1QztBQUNBLFNBQU9DLFFBQVEsQ0FBQ0ksT0FBVCxFQUFQO0FBQ0QsQ0FKRDs7ZUFNZU4sVyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogSGVscGVyIGZ1bmN0aW9uIHRvIHJldHVybiBhbiBhYnNvbHV0ZSBkZWFkbGluZSBnaXZlbiBhIHJlbGF0aXZlIHRpbWVvdXQgaW4gc2Vjb25kcy5cbiAqIEBwYXJhbSB7bnVtYmVyfSB0aW1lb3V0U2VjcyBUaGUgbnVtYmVyIG9mIHNlY29uZHMgdG8gd2FpdCBiZWZvcmUgdGltaW5nIG91dFxuICogQHJldHVybiB7RGF0ZX0gQSBkYXRlIHRpbWVvdXRTZWNzIGluIHRoZSBmdXR1cmVcbiAqL1xuY29uc3QgZ2V0RGVhZGxpbmUgPSAodGltZW91dFNlY3MpID0+IHtcbiAgdmFyIGRlYWRsaW5lID0gbmV3IERhdGUoKVxuICBkZWFkbGluZS5zZXRTZWNvbmRzKGRlYWRsaW5lLmdldFNlY29uZHMoKSArIHRpbWVvdXRTZWNzKVxuICByZXR1cm4gZGVhZGxpbmUuZ2V0VGltZSgpXG59XG5cbmV4cG9ydCBkZWZhdWx0IGdldERlYWRsaW5lXG4iXX0=

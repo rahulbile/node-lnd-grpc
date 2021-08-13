@@ -1,0 +1,21 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+const grpcSslCipherSuites = [// Default is ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384
+// https://github.com/grpc/grpc/blob/master/doc/environment_variables.md
+//
+// Current LND cipher suites here:
+// https://github.com/lightningnetwork/lnd/blob/master/lnd.go#L80
+//
+// We order the suites by priority, based on the recommendations provided by SSL Labs here:
+// https://github.com/ssllabs/research/wiki/SSL-and-TLS-Deployment-Best-Practices#23-use-secure-cipher-suites
+'ECDHE-ECDSA-AES128-GCM-SHA256', 'ECDHE-ECDSA-AES256-GCM-SHA384', 'ECDHE-ECDSA-AES128-CBC-SHA256', 'ECDHE-ECDSA-CHACHA20-POLY1305', // BTCPay Server serves lnd behind an nginx proxy with a trusted SSL cert from Lets Encrypt.
+// These certs use an RSA TLS cipher suite.
+'ECDHE-RSA-AES256-GCM-SHA384', 'ECDHE-RSA-AES128-GCM-SHA256'].join(':');
+var _default = grpcSslCipherSuites;
+exports.default = _default;
+module.exports = exports.default;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy91dGlscy9ncnBjU3NsQ2lwaGVyU3VpdGVzLmpzIl0sIm5hbWVzIjpbImdycGNTc2xDaXBoZXJTdWl0ZXMiLCJqb2luIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQSxNQUFNQSxtQkFBbUIsR0FBRyxDQUMxQjtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsK0JBVDBCLEVBVTFCLCtCQVYwQixFQVcxQiwrQkFYMEIsRUFZMUIsK0JBWjBCLEVBYzFCO0FBQ0E7QUFDQSw2QkFoQjBCLEVBaUIxQiw2QkFqQjBCLEVBa0IxQkMsSUFsQjBCLENBa0JyQixHQWxCcUIsQ0FBNUI7ZUFvQmVELG1CIiwic291cmNlc0NvbnRlbnQiOlsiY29uc3QgZ3JwY1NzbENpcGhlclN1aXRlcyA9IFtcbiAgLy8gRGVmYXVsdCBpcyBFQ0RIRS1SU0EtQUVTMTI4LUdDTS1TSEEyNTY6RUNESEUtUlNBLUFFUzI1Ni1HQ00tU0hBMzg0XG4gIC8vIGh0dHBzOi8vZ2l0aHViLmNvbS9ncnBjL2dycGMvYmxvYi9tYXN0ZXIvZG9jL2Vudmlyb25tZW50X3ZhcmlhYmxlcy5tZFxuICAvL1xuICAvLyBDdXJyZW50IExORCBjaXBoZXIgc3VpdGVzIGhlcmU6XG4gIC8vIGh0dHBzOi8vZ2l0aHViLmNvbS9saWdodG5pbmduZXR3b3JrL2xuZC9ibG9iL21hc3Rlci9sbmQuZ28jTDgwXG4gIC8vXG4gIC8vIFdlIG9yZGVyIHRoZSBzdWl0ZXMgYnkgcHJpb3JpdHksIGJhc2VkIG9uIHRoZSByZWNvbW1lbmRhdGlvbnMgcHJvdmlkZWQgYnkgU1NMIExhYnMgaGVyZTpcbiAgLy8gaHR0cHM6Ly9naXRodWIuY29tL3NzbGxhYnMvcmVzZWFyY2gvd2lraS9TU0wtYW5kLVRMUy1EZXBsb3ltZW50LUJlc3QtUHJhY3RpY2VzIzIzLXVzZS1zZWN1cmUtY2lwaGVyLXN1aXRlc1xuICAnRUNESEUtRUNEU0EtQUVTMTI4LUdDTS1TSEEyNTYnLFxuICAnRUNESEUtRUNEU0EtQUVTMjU2LUdDTS1TSEEzODQnLFxuICAnRUNESEUtRUNEU0EtQUVTMTI4LUNCQy1TSEEyNTYnLFxuICAnRUNESEUtRUNEU0EtQ0hBQ0hBMjAtUE9MWTEzMDUnLFxuXG4gIC8vIEJUQ1BheSBTZXJ2ZXIgc2VydmVzIGxuZCBiZWhpbmQgYW4gbmdpbnggcHJveHkgd2l0aCBhIHRydXN0ZWQgU1NMIGNlcnQgZnJvbSBMZXRzIEVuY3J5cHQuXG4gIC8vIFRoZXNlIGNlcnRzIHVzZSBhbiBSU0EgVExTIGNpcGhlciBzdWl0ZS5cbiAgJ0VDREhFLVJTQS1BRVMyNTYtR0NNLVNIQTM4NCcsXG4gICdFQ0RIRS1SU0EtQUVTMTI4LUdDTS1TSEEyNTYnLFxuXS5qb2luKCc6JylcblxuZXhwb3J0IGRlZmF1bHQgZ3JwY1NzbENpcGhlclN1aXRlc1xuIl19

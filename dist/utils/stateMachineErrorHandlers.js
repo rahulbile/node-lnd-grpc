@@ -1,0 +1,31 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.onInvalidTransition = exports.onPendingTransition = void 0;
+
+// The default error handler of StateMachine do not throw regular js Errors with stack traces.
+// https://github.com/jakesgordon/javascript-state-machine/blob/master/docs/error-handling.md#invalid-transitions
+// Usage:
+// new StateMachine({ ... methods: [ ..., onPendingTransition, onInvalidTransition ] })
+const onPendingTransition = (transition, from, to) => {
+  throw Object.assign(new Error('transition already in progress'), {
+    transition,
+    from,
+    to
+  });
+};
+
+exports.onPendingTransition = onPendingTransition;
+
+const onInvalidTransition = (transition, from, to) => {
+  throw Object.assign(new Error('transition is invalid in current state'), {
+    transition,
+    from,
+    to
+  });
+};
+
+exports.onInvalidTransition = onInvalidTransition;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy91dGlscy9zdGF0ZU1hY2hpbmVFcnJvckhhbmRsZXJzLmpzIl0sIm5hbWVzIjpbIm9uUGVuZGluZ1RyYW5zaXRpb24iLCJ0cmFuc2l0aW9uIiwiZnJvbSIsInRvIiwiT2JqZWN0IiwiYXNzaWduIiwiRXJyb3IiLCJvbkludmFsaWRUcmFuc2l0aW9uIl0sIm1hcHBpbmdzIjoiOzs7Ozs7O0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFFTyxNQUFNQSxtQkFBbUIsR0FBRyxDQUFDQyxVQUFELEVBQWFDLElBQWIsRUFBbUJDLEVBQW5CLEtBQTBCO0FBQzNELFFBQU1DLE1BQU0sQ0FBQ0MsTUFBUCxDQUFjLElBQUlDLEtBQUosQ0FBVSxnQ0FBVixDQUFkLEVBQTJEO0FBQUVMLElBQUFBLFVBQUY7QUFBY0MsSUFBQUEsSUFBZDtBQUFvQkMsSUFBQUE7QUFBcEIsR0FBM0QsQ0FBTjtBQUNELENBRk07Ozs7QUFJQSxNQUFNSSxtQkFBbUIsR0FBRyxDQUFDTixVQUFELEVBQWFDLElBQWIsRUFBbUJDLEVBQW5CLEtBQTBCO0FBQzNELFFBQU1DLE1BQU0sQ0FBQ0MsTUFBUCxDQUFjLElBQUlDLEtBQUosQ0FBVSx3Q0FBVixDQUFkLEVBQW1FO0FBQUVMLElBQUFBLFVBQUY7QUFBY0MsSUFBQUEsSUFBZDtBQUFvQkMsSUFBQUE7QUFBcEIsR0FBbkUsQ0FBTjtBQUNELENBRk0iLCJzb3VyY2VzQ29udGVudCI6WyIvLyBUaGUgZGVmYXVsdCBlcnJvciBoYW5kbGVyIG9mIFN0YXRlTWFjaGluZSBkbyBub3QgdGhyb3cgcmVndWxhciBqcyBFcnJvcnMgd2l0aCBzdGFjayB0cmFjZXMuXG4vLyBodHRwczovL2dpdGh1Yi5jb20vamFrZXNnb3Jkb24vamF2YXNjcmlwdC1zdGF0ZS1tYWNoaW5lL2Jsb2IvbWFzdGVyL2RvY3MvZXJyb3ItaGFuZGxpbmcubWQjaW52YWxpZC10cmFuc2l0aW9uc1xuLy8gVXNhZ2U6XG4vLyBuZXcgU3RhdGVNYWNoaW5lKHsgLi4uIG1ldGhvZHM6IFsgLi4uLCBvblBlbmRpbmdUcmFuc2l0aW9uLCBvbkludmFsaWRUcmFuc2l0aW9uIF0gfSlcblxuZXhwb3J0IGNvbnN0IG9uUGVuZGluZ1RyYW5zaXRpb24gPSAodHJhbnNpdGlvbiwgZnJvbSwgdG8pID0+IHtcbiAgdGhyb3cgT2JqZWN0LmFzc2lnbihuZXcgRXJyb3IoJ3RyYW5zaXRpb24gYWxyZWFkeSBpbiBwcm9ncmVzcycpLCB7IHRyYW5zaXRpb24sIGZyb20sIHRvIH0pXG59XG5cbmV4cG9ydCBjb25zdCBvbkludmFsaWRUcmFuc2l0aW9uID0gKHRyYW5zaXRpb24sIGZyb20sIHRvKSA9PiB7XG4gIHRocm93IE9iamVjdC5hc3NpZ24obmV3IEVycm9yKCd0cmFuc2l0aW9uIGlzIGludmFsaWQgaW4gY3VycmVudCBzdGF0ZScpLCB7IHRyYW5zaXRpb24sIGZyb20sIHRvIH0pXG59XG4iXX0=

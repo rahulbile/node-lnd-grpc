@@ -69,8 +69,5 @@ typings/
 # Vendor binaries
 /vendor
 
-# Transpiled code
-/dist
-
 # Test data
 test/data

@@ -1,0 +1,33 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+
+/**
+ * promiseTimeout - Reject a promise if it doesn't resolve after a given timeout window.
+ *
+ * @param {number} ms Timeout (ms)
+ * @param {Promise} promise Promise to timeout
+ * @param {string} message messaged passed to the reject promise
+ * @returns {Promise} Promise that rejects in <ms> milliseconds
+ */
+function _default(ms, promise, message = 'Timed out') {
+  // Create a promise that rejects in <ms> milliseconds
+  let timerId;
+  const timeout = new Promise((resolve, reject) => {
+    timerId = setTimeout(() => reject(new Error(message)), ms);
+  });
+
+  const clearTimer = value => {
+    timerId && clearTimeout(timerId);
+    return value;
+  }; // Returns a race between our timeout and the passed in promise
+
+
+  return Promise.race([promise, timeout]).finally(clearTimer);
+}
+
+module.exports = exports.default;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy91dGlscy9wcm9taXNlVGltZW91dC5qcyJdLCJuYW1lcyI6WyJtcyIsInByb21pc2UiLCJtZXNzYWdlIiwidGltZXJJZCIsInRpbWVvdXQiLCJQcm9taXNlIiwicmVzb2x2ZSIsInJlamVjdCIsInNldFRpbWVvdXQiLCJFcnJvciIsImNsZWFyVGltZXIiLCJ2YWx1ZSIsImNsZWFyVGltZW91dCIsInJhY2UiLCJmaW5hbGx5Il0sIm1hcHBpbmdzIjoiOzs7Ozs7O0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNlLGtCQUFVQSxFQUFWLEVBQWNDLE9BQWQsRUFBdUJDLE9BQU8sR0FBRyxXQUFqQyxFQUE4QztBQUMzRDtBQUNBLE1BQUlDLE9BQUo7QUFFQSxRQUFNQyxPQUFPLEdBQUcsSUFBSUMsT0FBSixDQUFZLENBQUNDLE9BQUQsRUFBVUMsTUFBVixLQUFxQjtBQUMvQ0osSUFBQUEsT0FBTyxHQUFHSyxVQUFVLENBQUMsTUFBTUQsTUFBTSxDQUFDLElBQUlFLEtBQUosQ0FBVVAsT0FBVixDQUFELENBQWIsRUFBbUNGLEVBQW5DLENBQXBCO0FBQ0QsR0FGZSxDQUFoQjs7QUFHQSxRQUFNVSxVQUFVLEdBQUlDLEtBQUQsSUFBVztBQUM1QlIsSUFBQUEsT0FBTyxJQUFJUyxZQUFZLENBQUNULE9BQUQsQ0FBdkI7QUFDQSxXQUFPUSxLQUFQO0FBQ0QsR0FIRCxDQVAyRCxDQVczRDs7O0FBQ0EsU0FBT04sT0FBTyxDQUFDUSxJQUFSLENBQWEsQ0FBQ1osT0FBRCxFQUFVRyxPQUFWLENBQWIsRUFBaUNVLE9BQWpDLENBQXlDSixVQUF6QyxDQUFQO0FBQ0QiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIHByb21pc2VUaW1lb3V0IC0gUmVqZWN0IGEgcHJvbWlzZSBpZiBpdCBkb2Vzbid0IHJlc29sdmUgYWZ0ZXIgYSBnaXZlbiB0aW1lb3V0IHdpbmRvdy5cbiAqXG4gKiBAcGFyYW0ge251bWJlcn0gbXMgVGltZW91dCAobXMpXG4gKiBAcGFyYW0ge1Byb21pc2V9IHByb21pc2UgUHJvbWlzZSB0byB0aW1lb3V0XG4gKiBAcGFyYW0ge3N0cmluZ30gbWVzc2FnZSBtZXNzYWdlZCBwYXNzZWQgdG8gdGhlIHJlamVjdCBwcm9taXNlXG4gKiBAcmV0dXJucyB7UHJvbWlzZX0gUHJvbWlzZSB0aGF0IHJlamVjdHMgaW4gPG1zPiBtaWxsaXNlY29uZHNcbiAqL1xuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gKG1zLCBwcm9taXNlLCBtZXNzYWdlID0gJ1RpbWVkIG91dCcpIHtcbiAgLy8gQ3JlYXRlIGEgcHJvbWlzZSB0aGF0IHJlamVjdHMgaW4gPG1zPiBtaWxsaXNlY29uZHNcbiAgbGV0IHRpbWVySWRcblxuICBjb25zdCB0aW1lb3V0ID0gbmV3IFByb21pc2UoKHJlc29sdmUsIHJlamVjdCkgPT4ge1xuICAgIHRpbWVySWQgPSBzZXRUaW1lb3V0KCgpID0+IHJlamVjdChuZXcgRXJyb3IobWVzc2FnZSkpLCBtcylcbiAgfSlcbiAgY29uc3QgY2xlYXJUaW1lciA9ICh2YWx1ZSkgPT4ge1xuICAgIHRpbWVySWQgJiYgY2xlYXJUaW1lb3V0KHRpbWVySWQpXG4gICAgcmV0dXJuIHZhbHVlXG4gIH1cbiAgLy8gUmV0dXJucyBhIHJhY2UgYmV0d2VlbiBvdXIgdGltZW91dCBhbmQgdGhlIHBhc3NlZCBpbiBwcm9taXNlXG4gIHJldHVybiBQcm9taXNlLnJhY2UoW3Byb21pc2UsIHRpbWVvdXRdKS5maW5hbGx5KGNsZWFyVGltZXIpXG59XG4iXX0=

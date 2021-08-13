@@ -1,0 +1,19 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+// The following options object closely approximates the existing behavior of grpc.load.
+// See https://github.com/grpc/grpc-node/blob/master/packages/grpc-protobufjs/README.md
+const grpcOptions = {
+  keepCase: true,
+  longs: Number,
+  enums: String,
+  defaults: true,
+  oneofs: true
+};
+var _default = grpcOptions;
+exports.default = _default;
+module.exports = exports.default;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy91dGlscy9ncnBjT3B0aW9ucy5qcyJdLCJuYW1lcyI6WyJncnBjT3B0aW9ucyIsImtlZXBDYXNlIiwibG9uZ3MiLCJOdW1iZXIiLCJlbnVtcyIsIlN0cmluZyIsImRlZmF1bHRzIiwib25lb2ZzIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQTtBQUNBO0FBQ0EsTUFBTUEsV0FBVyxHQUFHO0FBQ2xCQyxFQUFBQSxRQUFRLEVBQUUsSUFEUTtBQUVsQkMsRUFBQUEsS0FBSyxFQUFFQyxNQUZXO0FBR2xCQyxFQUFBQSxLQUFLLEVBQUVDLE1BSFc7QUFJbEJDLEVBQUFBLFFBQVEsRUFBRSxJQUpRO0FBS2xCQyxFQUFBQSxNQUFNLEVBQUU7QUFMVSxDQUFwQjtlQVFlUCxXIiwic291cmNlc0NvbnRlbnQiOlsiLy8gVGhlIGZvbGxvd2luZyBvcHRpb25zIG9iamVjdCBjbG9zZWx5IGFwcHJveGltYXRlcyB0aGUgZXhpc3RpbmcgYmVoYXZpb3Igb2YgZ3JwYy5sb2FkLlxuLy8gU2VlIGh0dHBzOi8vZ2l0aHViLmNvbS9ncnBjL2dycGMtbm9kZS9ibG9iL21hc3Rlci9wYWNrYWdlcy9ncnBjLXByb3RvYnVmanMvUkVBRE1FLm1kXG5jb25zdCBncnBjT3B0aW9ucyA9IHtcbiAga2VlcENhc2U6IHRydWUsXG4gIGxvbmdzOiBOdW1iZXIsXG4gIGVudW1zOiBTdHJpbmcsXG4gIGRlZmF1bHRzOiB0cnVlLFxuICBvbmVvZnM6IHRydWUsXG59XG5cbmV4cG9ydCBkZWZhdWx0IGdycGNPcHRpb25zXG4iXX0=
